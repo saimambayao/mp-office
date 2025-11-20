@@ -163,7 +163,7 @@ x-init="window.addEventListener('resize', () => { if (window.innerWidth >= 768) 
             <!-- Logo Section -->
             <div class="flex items-center">
                 <a href="{% url 'home' %}" class="group flex items-center gap-3 transition-transform duration-200 hover:scale-105">
-                    <div style="width: 40px; height: 40px; border-radius: 12px; background: linear-gradient(135deg, #1e40af 0%, #059669 100%); display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); transition: all 0.2s ease; color: white; font-weight: bold; font-size: 14px;" onmouseover='this.style.boxShadow="0 8px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)"; this.style.transform="scale(1.05)";' onmouseout='this.style.boxShadow="0 4px 6px -1px rgba(0, 0, 0, 0.1)"; this.style.transform="scale(1)";'><i class="fas fa-building"></i></div>
+                    <div style="width: 40px; height: 40px; border-radius: 12px; background: linear-gradient(135deg, #1e40af 0%, #059669 100%); display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); transition: all 0.2s ease; color: white; font-weight: bold; font-size: 14px;" onmouseover='this.style.boxShadow="0 8px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)"; this.style.transform="scale(1.05)";' onmouseout='this.style.boxShadow="0 4px 6px -1px rgba(0, 0, 0, 0.1)"; this.style.transform="scale(1)";'><i class="fas fa-gavel"></i></div>
                     <div class="hidden sm:block">
                         <div style="display: flex; flex-direction: column; line-height: 1.2;">
                             <span style="font-size: 1.125rem; font-weight: 700; background: linear-gradient(135deg, #059669 0%, #047857 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: #059669;">Bangsamoro</span>
@@ -260,7 +260,8 @@ x-init="window.addEventListener('resize', () => { if (window.innerWidth >= 768) 
                             </div>
                         </a>
 
-                        <!-- Completed Programs -->
+                        <!-- Completed Programs - Hidden but code preserved -->
+                        <!--
                         <a href="{% url 'completed_programs' %}"
                            style="display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; font-size: 0.875rem; color: #374151; transition: all 0.15s ease;" onmouseover="this.style.backgroundColor='rgba(240, 253, 244, 0.8)'; this.style.color='#047857';" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#374151';">
                             <div style="width: 24px; height: 24px; min-width: 24px; min-height: 24px; border-radius: 0.5rem; background: linear-gradient(135deg, rgb(30, 64, 175) 0%, rgb(5, 150, 105) 100%); display: flex; align-items: center; justify-content: center; transition: all 0.15s ease; overflow: hidden; flex-shrink: 0; box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.1);" onmouseover="this.style.background='linear-gradient(135deg, rgb(30, 58, 138) 0%, rgb(4, 120, 87) 100%)'; this.style.transform='scale(1.05)'; this.style.boxShadow='0 4px 6px -1px rgba(0, 0, 0, 0.1)';" onmouseout="this.style.background='linear-gradient(135deg, rgb(30, 64, 175) 0%, rgb(5, 150, 105) 100%)'; this.style.transform='scale(1)'; this.style.boxShadow='0 2px 4px -1px rgba(0, 0, 0, 0.1)';">
@@ -271,6 +272,7 @@ x-init="window.addEventListener('resize', () => { if (window.innerWidth >= 768) 
                                 <p class="text-sm text-gray-500">View past successful programs</p>
                             </div>
                         </a>
+                        -->
 
                         <!-- Original disabled code preserved for future reference -->
                         <!-- Ministry Programs - Alpha: Disabled -->
@@ -303,6 +305,25 @@ x-init="window.addEventListener('resize', () => { if (window.innerWidth >= 768) 
                     </div>
                 </div>
 
+                <!-- Get Involved Link -->
+                <a href="{% url 'get_involved' %}"
+                   {% if request.resolver_match.url_name == 'get_involved' %}
+                   style="position: relative; padding: 0.75rem 0.75rem; font-size: 0.875rem; font-weight: 500; transition: color 0.2s ease; color: #047857;"
+                   {% else %}
+                   style="position: relative; padding: 0.75rem 0.75rem; font-size: 0.875rem; font-weight: 500; transition: color 0.2s ease; color: #374151;"
+                   onmouseover="this.style.color='#059669';"
+                   onmouseout="this.style.color='#374151';"
+                   {% endif %}>
+                   {% trans "Get Involved" %}
+                   <span {% if request.resolver_match.url_name == 'get_involved' %}
+                         style="position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: #059669; transform: scaleX(1); transition: transform 0.2s ease;"
+                         {% else %}
+                         style="position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: #059669; transform: scaleX(0); transition: transform 0.2s ease;"
+                         {% endif %}
+                         onmouseover="this.style.transform='scaleX(1)';"
+                         onmouseout="{% if request.resolver_match.url_name != 'get_involved' %}this.style.transform='scaleX(0)';{% endif %}"></span>
+                </a>
+
                 <!-- News Link -->
                 <a href="{% url 'announcements' %}"
                    {% if request.resolver_match.url_name == 'announcements' or request.resolver_match.url_name == 'announcement_detail' %}
@@ -322,7 +343,8 @@ x-init="window.addEventListener('resize', () => { if (window.innerWidth >= 768) 
                          onmouseout="{% if request.resolver_match.url_name != 'announcements' and request.resolver_match.url_name != 'announcement_detail' %}this.style.transform='scaleX(0)';{% endif %}"></span>
                 </a>
 
-                <!-- Chapters Link -->
+                <!-- Chapters Link - Hidden but code preserved -->
+                <!--
                 <a href="{% url 'chapters_public' %}"
                    {% if 'chapter' in request.resolver_match.url_name %}
                    style="position: relative; padding: 0.75rem 0.75rem; font-size: 0.875rem; font-weight: 500; transition: color 0.2s ease; color: #047857;"
@@ -340,6 +362,7 @@ x-init="window.addEventListener('resize', () => { if (window.innerWidth >= 768) 
                          onmouseover="this.style.transform='scaleX(1)';"
                          onmouseout="{% if 'chapter' not in request.resolver_match.url_name %}this.style.transform='scaleX(0)';{% endif %}"></span>
                 </a>
+                -->
 
                 <!-- Database Dropdown (Staff Only) -->
                 {% if user.is_authenticated and user.user_type in 'superuser,mp,chief_of_staff,admin,coordinator' or user.is_superuser %}
@@ -733,6 +756,8 @@ x-init="window.addEventListener('resize', () => { if (window.innerWidth >= 768) 
                             </div>
                             <span>Ministry Programs</span>
                         </a>
+                        <!-- Completed Programs - Hidden but code preserved -->
+                        <!--
                         <a href="{% url 'completed_programs' %}"
                            style="display: flex; align-items: center; gap: 0.75rem; border-radius: 0.5rem; padding: 0.625rem 1rem; font-size: 0.875rem; font-weight: 500; color: #374151; transition: all 0.2s ease; min-height: 44px; text-decoration: none;"
                            onmouseover="this.style.backgroundColor='#ecfdf5'; this.style.color='#047857';"
@@ -743,6 +768,7 @@ x-init="window.addEventListener('resize', () => { if (window.innerWidth >= 768) 
                             </div>
                             <span>Completed Programs</span>
                         </a>
+                        -->
                     </div>
                 </div>
 
@@ -755,6 +781,15 @@ x-init="window.addEventListener('resize', () => { if (window.innerWidth >= 768) 
                         <h3 style="font-size: 1.125rem; font-weight: 600; color: #111827;">{% trans "Community" %}</h3>
                     </div>
                     <div style="display: flex; flex-direction: column; gap: 0.25rem; margin-left: 1rem;">
+                        <a href="{% url 'get_involved' %}"
+                           style="display: flex; align-items: center; gap: 0.75rem; border-radius: 0.5rem; padding: 0.625rem 1rem; font-size: 0.875rem; font-weight: 500; color: #374151; transition: all 0.2s ease; min-height: 44px; text-decoration: none;"
+                           onmouseover="this.style.backgroundColor='#ecfdf5'; this.style.color='#047857';"
+                           onmouseout="this.style.backgroundColor='transparent'; this.style.color='#374151';">
+                            <div style="width: 24px; height: 24px; border-radius: 0.5rem; background: linear-gradient(135deg, rgb(30, 64, 175) 0%, rgb(5, 150, 105) 100%); display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.1); flex-shrink: 0;">
+                                <i class="fas fa-hand-holding-heart" style="font-size: 0.75rem; color: white;"></i>
+                            </div>
+                            <span>{% trans "Get Involved" %}</span>
+                        </a>
                         <a href="{% url 'announcements' %}"
                            style="display: flex; align-items: center; gap: 0.75rem; border-radius: 0.5rem; padding: 0.625rem 1rem; font-size: 0.875rem; font-weight: 500; color: #374151; transition: all 0.2s ease; min-height: 44px; text-decoration: none;"
                            onmouseover="this.style.backgroundColor='#ecfdf5'; this.style.color='#047857';"
@@ -765,6 +800,8 @@ x-init="window.addEventListener('resize', () => { if (window.innerWidth >= 768) 
                             </div>
                             <span>{% trans "News" %}</span>
                         </a>
+                        <!-- Communities Link - Hidden but code preserved -->
+                        <!--
                         <a href="{% url 'chapters_public' %}"
                            style="display: flex; align-items: center; gap: 0.75rem; border-radius: 0.5rem; padding: 0.625rem 1rem; font-size: 0.875rem; font-weight: 500; color: #374151; transition: all 0.2s ease; min-height: 44px; text-decoration: none;"
                            onmouseover="this.style.backgroundColor='#ecfdf5'; this.style.color='#047857';"
@@ -775,6 +812,7 @@ x-init="window.addEventListener('resize', () => { if (window.innerWidth >= 768) 
                             </div>
                             <span>{% trans "Communities" %}</span>
                         </a>
+                        -->
                     </div>
                 </div>
 

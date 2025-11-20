@@ -8,6 +8,7 @@ urlpatterns = [
     path('', views.HomePageView.as_view(), name='home'),
     path('about/', views.AboutPageView.as_view(), name='about'),
     path('about-chapters/', views.PublicChaptersView.as_view(), name='chapters_public'),
+    path('get-involved/', views.GetInvolvedPageView.as_view(), name='get_involved'),
     path('contact/', views.ContactPageView.as_view(), name='contact'),
     path('ministries-ppas/', views.MinistriesPPAsView.as_view(), name='ministries_ppas'),
     path('programs/', views.ProgramsView.as_view(), name='programs'),

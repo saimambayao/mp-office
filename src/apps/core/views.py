@@ -655,6 +655,39 @@ class AboutPageView(TemplateView):
             context['message_type'] = 'error'
             return render(request, self.template_name, context)
 
+class GetInvolvedPageView(TemplateView):
+    """Get Involved page view."""
+    template_name = 'core/get_involved.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Add contact form
+        context['contact_form'] = ContactForm()
+        return context
+    
+    def post(self, request, *args, **kwargs):
+        # Process contact form submission
+        contact_form = ContactForm(request.POST)
+        
+        if contact_form.is_valid():
+            # Save the contact form submission
+            submission = contact_form.save(commit=False)
+            submission.form_source = 'get_involved_page'
+            submission.save()
+            
+            context = self.get_context_data(**kwargs)
+            context['message'] = "Thank you for contacting us. We will get back to you soon."
+            context['message_type'] = 'success'
+            context['contact_form'] = ContactForm()  # Fresh form
+            return render(request, self.template_name, context)
+        else:
+            # Form has errors
+            context = self.get_context_data(**kwargs)
+            context['contact_form'] = contact_form
+            context['message'] = 'Please correct the errors below.'
+            context['message_type'] = 'error'
+            return render(request, self.template_name, context)
+
 class PublicChaptersView(TemplateView):
     """Public chapters overview page - accessible to all."""
     template_name = 'core/chapters.html'
