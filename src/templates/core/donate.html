@@ -5,12 +5,12 @@
 {% block content %}
 <div class="container mx-auto py-8 px-4">
     <div class="max-w-4xl mx-auto">
-        <h1 class="text-3xl font-bold text-primary-800 mb-6">Support BM Parliament</h1>
+        <h1 class="text-3xl font-bold text-primary-800 mb-6">Support our Communities</h1>
         
         <div class="bg-white rounded-lg shadow-md p-6 mb-8">
             <h2 class="text-2xl font-semibold mb-4 text-primary-700">Make a Difference</h2>
             <p class="mb-4 text-gray-700">
-                Your generous donation helps BM Parliament expand our programs and reach more Bangsamoro communities 
+                Your generous donation helps us expand our programs and reach more Bangsamoro communities 
                 in need. Every contribution, no matter the size, makes a meaningful impact in someone's life.
             </p>
             <p class="mb-4 text-gray-700">
@@ -53,17 +53,17 @@
             <h2 class="text-2xl font-semibold mb-4 text-primary-700">Ways to Contribute</h2>
             <div class="grid md:grid-cols-3 gap-4">
                 <div class="text-center p-4 bg-primary-50 rounded-lg">
-                    <i class="fas fa-money-bill-wave text-3xl text-primary-600 mb-2"></i>
+                    <i class="fas fa-money-bill-wave text-3xl mb-2" style="background: linear-gradient(135deg, #1e40af 0%, #059669 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;"></i>
                     <h3 class="font-semibold mb-2">Monetary Donations</h3>
                     <p class="text-sm text-gray-600">Cash contributions for immediate program needs</p>
                 </div>
                 <div class="text-center p-4 bg-primary-50 rounded-lg">
-                    <i class="fas fa-box text-3xl text-primary-600 mb-2"></i>
+                    <i class="fas fa-box text-3xl mb-2" style="background: linear-gradient(135deg, #1e40af 0%, #059669 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;"></i>
                     <h3 class="font-semibold mb-2">Goods & Materials</h3>
                     <p class="text-sm text-gray-600">Essential items and supplies for community programs</p>
                 </div>
                 <div class="text-center p-4 bg-primary-50 rounded-lg">
-                    <i class="fas fa-tools text-3xl text-primary-600 mb-2"></i>
+                    <i class="fas fa-tools text-3xl mb-2" style="background: linear-gradient(135deg, #1e40af 0%, #059669 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;"></i>
                     <h3 class="font-semibold mb-2">Services & Equipment</h3>
                     <p class="text-sm text-gray-600">Professional services or equipment donations</p>
                 </div>
@@ -127,6 +127,7 @@
                         <div>
                             <label for="{{ donation_form.phone_number.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
                                 {{ donation_form.phone_number.label }}
+                                <span class="text-error-600">*</span>
                             </label>
                             {{ donation_form.phone_number }}
                             {% if donation_form.phone_number.errors %}

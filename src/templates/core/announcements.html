@@ -34,8 +34,12 @@
             <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 text-white drop-shadow-lg">Latest Updates</h1>
             <p class="text-xl md:text-2xl text-white/90 drop-shadow-md mb-8 max-w-3xl mx-auto">Stay informed about the latest activities, programs, and parliamentary updates from MP Gayak.</p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="{% url 'email_subscribe' %}" style="display: inline-flex; align-items: center; justify-content: center; font-weight: 500; border-radius: 0.375rem; transition: all 0.3s ease; outline: none; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); padding: 0.75rem 1.5rem; font-size: 1.125rem; background: white; color: #047857; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);" onmouseover="this.style.backgroundColor='#f9fafb'; this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)';" onmouseout="this.style.backgroundColor='white'; this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)';" onfocus="this.style.boxShadow='0 0 0 2px #10b981';">Subscribe to Updates</a>
-                <a href="{% url 'register' %}" style="display: inline-flex; align-items: center; justify-content: center; font-weight: 500; border-radius: 0.375rem; transition: all 0.3s ease; outline: none; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); padding: 0.75rem 1.5rem; font-size: 1.125rem; border: 2px solid white; color: white; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px);" onmouseover="this.style.backgroundColor='rgba(255, 255, 255, 0.25)'; this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)';" onmouseout="this.style.backgroundColor='rgba(255, 255, 255, 0.1)'; this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)';" onfocus="this.style.boxShadow='0 0 0 2px rgba(255, 255, 255, 0.5)';">Join BM Parliament</a>
+                <a href="{% url 'email_subscribe' %}" style="display: inline-flex; align-items: center; justify-content: center; font-weight: 500; border-radius: 0.375rem; transition: all 0.3s ease; outline: none; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); padding: 0.75rem 1.5rem; font-size: 1rem; background: white; color: #047857; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);" onmouseover="this.style.backgroundColor='#f9fafb'; this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)';" onmouseout="this.style.backgroundColor='white'; this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)';" onfocus="this.style.boxShadow='0 0 0 2px #10b981';">Subscribe for Updates</a>
+                {% if user.is_authenticated %}
+                <a href="#" style="display: inline-flex; align-items: center; justify-content: center; font-weight: 500; border-radius: 0.375rem; transition: all 0.3s ease; outline: none; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); padding: 0.75rem 1.5rem; font-size: 1rem; border: 2px solid white; color: white; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px);" onclick="event.preventDefault(); showRegistrationModal();" onmouseover="this.style.backgroundColor='rgba(255, 255, 255, 0.25)'; this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)';" onmouseout="this.style.backgroundColor='rgba(255, 255, 255, 0.1)'; this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)';" onfocus="this.style.boxShadow='0 0 0 2px rgba(255, 255, 255, 0.5)';">Register for Assistance</a>
+                {% else %}
+                <a href="{% url 'register' %}" style="display: inline-flex; align-items: center; justify-content: center; font-weight: 500; border-radius: 0.375rem; transition: all 0.3s ease; outline: none; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); padding: 0.75rem 1.5rem; font-size: 1rem; border: 2px solid white; color: white; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px);" onmouseover="this.style.backgroundColor='rgba(255, 255, 255, 0.25)'; this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)';" onmouseout="this.style.backgroundColor='rgba(255, 255, 255, 0.1)'; this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)';" onfocus="this.style.boxShadow='0 0 0 2px rgba(255, 255, 255, 0.5)';">Register for Assistance</a>
+                {% endif %}
             </div>
         </div>
     </div>
@@ -286,16 +290,16 @@
                 <a href="{% url 'email_subscribe' %}"
                    style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.5rem; background: white; color: #047857; font-weight: 600; border-radius: 0.5rem; box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1); transition: all 0.15s ease;" onmouseover="this.style.backgroundColor='#f9fafb'; this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)';" onmouseout="this.style.backgroundColor='white'; this.style.transform='translateY(0)'; this.style.boxShadow='0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)';" onfocus="this.style.boxShadow='0 0 0 2px #10b981';">
                     <i class="fas fa-bell"></i>
-                    Subscribe to Updates
+                    Subscribe for Updates
                 </a>
-                {% include 'components/atoms/button.html' with variant='outline-white' text='Join Our Chapter' icon='fas fa-users' href='/chapters/' %}
+                {% include 'components/atoms/button.html' with variant='outline-white' text='Join our Volunteers' icon='fas fa-users' href='/chapters/' %}
             </div>
 
             <!-- Social Media Links -->
             <div class="mt-8 pt-8 border-t border-white/20">
                 <p class="text-white/80 text-sm mb-4">Follow us on social media for real-time updates</p>
                 <div class="flex justify-center space-x-6">
-                    <a href="#" style="color: rgba(255, 255, 255, 0.8); transition: color 0.3s ease;" onmouseover="this.style.color='white';" onmouseout="this.style.color='rgba(255, 255, 255, 0.8)';">
+                    <a href="https://www.facebook.com/mpabdullahgayak" target="_blank" rel="noopener noreferrer" style="color: rgba(255, 255, 255, 0.8); transition: color 0.3s ease;" onmouseover="this.style.color='white';" onmouseout="this.style.color='rgba(255, 255, 255, 0.8)';" aria-label="Follow us on Facebook">
                         <i class="fab fa-facebook text-xl"></i>
                     </a>
                     <a href="#" style="color: rgba(255, 255, 255, 0.8); transition: color 0.3s ease;" onmouseover="this.style.color='white';" onmouseout="this.style.color='rgba(255, 255, 255, 0.8)';">
@@ -312,5 +316,59 @@
         </div>
     </div>
 </div>
+
+<!-- Registration Modal -->
+<div id="registrationModal" class="fixed inset-0 z-50" style="background-color: rgba(0, 0, 0, 0.5);">
+    <div class="bg-white rounded-xl shadow-2xl p-8 max-w-md w-full mx-4 relative" style="max-width: 500px;">
+        <div class="text-center">
+            <div class="mb-4">
+                <i class="fas fa-check-circle text-6xl" style="background: linear-gradient(135deg, #1e40af 0%, #059669 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-slate-800 mb-6">You are already registered!</h3>
+            <button onclick="closeRegistrationModal()" class="inline-flex items-center justify-center px-8 py-3 text-base font-medium text-white rounded-lg shadow-md transition-all duration-200 min-h-[48px]" style="background: linear-gradient(135deg, #1e40af 0%, #059669 100%); display: inline-flex; align-items: center; justify-content: center;" onmouseover="this.style.background='linear-gradient(135deg, #1e3a8a 0%, #047857 100%)'; this.style.boxShadow='0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)';" onmouseout="this.style.background='linear-gradient(135deg, #1e40af 0%, #059669 100%)'; this.style.boxShadow='none';">
+                OK
+            </button>
+        </div>
+    </div>
+</div>
+
+<style>
+#registrationModal {
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+#registrationModal.show {
+    display: flex;
+}
+</style>
+
+<script>
+function showRegistrationModal() {
+    const modal = document.getElementById('registrationModal');
+    modal.classList.add('show');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeRegistrationModal() {
+    const modal = document.getElementById('registrationModal');
+    modal.classList.remove('show');
+    document.body.style.overflow = '';
+}
+
+// Close modal when clicking outside
+document.getElementById('registrationModal').addEventListener('click', function(e) {
+    if (e.target === this) {
+        closeRegistrationModal();
+    }
+});
+
+// Close modal when pressing ESC key
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeRegistrationModal();
+    }
+});
+</script>
 
 {% endblock %}

@@ -305,6 +305,17 @@ class PartnershipForm(forms.ModelForm):
     """
     Form for partnership inquiries and applications.
     """
+    phone_number = forms.CharField(
+        max_length=20,
+        required=True,
+        widget=forms.TextInput(attrs={
+            "class": "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 placeholder-gray-500",
+            "placeholder": "Enter phone number",
+            "type": "tel",
+            "required": True,
+        })
+    )
+    
     class Meta:
         model = PartnershipSubmission
         fields = [
@@ -326,11 +337,6 @@ class PartnershipForm(forms.ModelForm):
                 "class": "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 placeholder-gray-500",
                 "placeholder": "Enter email address",
                 "required": True,
-            }),
-            "phone_number": forms.TextInput(attrs={
-                "class": "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 placeholder-gray-500",
-                "placeholder": "Enter phone number",
-                "type": "tel",
             }),
             "website": forms.URLInput(attrs={
                 "class": "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 placeholder-gray-500",
@@ -363,6 +369,17 @@ class DonationForm(forms.ModelForm):
     """
     Form for donation inquiries and pledges.
     """
+    phone_number = forms.CharField(
+        max_length=20,
+        required=True,
+        widget=forms.TextInput(attrs={
+            "class": "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 placeholder-gray-500",
+            "placeholder": "Enter phone number",
+            "type": "tel",
+            "required": True,
+        })
+    )
+    
     class Meta:
         model = DonationSubmission
         fields = [
@@ -383,11 +400,6 @@ class DonationForm(forms.ModelForm):
                 "class": "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 placeholder-gray-500",
                 "placeholder": "Enter email address",
                 "required": True,
-            }),
-            "phone_number": forms.TextInput(attrs={
-                "class": "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 placeholder-gray-500",
-                "placeholder": "Enter phone number",
-                "type": "tel",
             }),
             "donation_type": forms.Select(attrs={
                 "class": "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500",

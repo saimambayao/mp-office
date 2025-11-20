@@ -19,13 +19,13 @@
     }
 
     .service-card.is-center {
-        transform: scale(1.1);
+        transform: scale(0.8);
         box-shadow: 0 4px 12px rgba(5, 150, 105, 0.15);
         border-color: rgba(5, 150, 105, 0.2);
     }
 
     .service-card.is-highlighted {
-        transform: scale(1.2);
+        transform: scale(1.05);
         box-shadow: 0 20px 40px rgba(5, 150, 105, 0.3), 0 0 30px rgba(5, 150, 105, 0.2);
         border-color: rgba(5, 150, 105, 0.4);
         z-index: 10;
@@ -125,13 +125,13 @@
                     {% trans 'MP Amiroddin Gayak' %}
                 </h1>
 
-                <h3 class="text-3xl md:text-4xl font-bold mb-6 text-primary-50 drop-shadow-lg">
+                <h3 class="text-3xl md:text-4xl font-semibold mb-6 text-primary-50 drop-shadow-lg">
                     {% trans 'Serving the Bangsamoro with Integrity and Purpose.' %}
                 </h3>
 
                 <!-- Action Buttons -->
                 <div class="flex flex-col sm:flex-row gap-4 mb-12">
-                    <a href="{% url 'about' %}" class="inline-flex items-center justify-center px-6 py-3 bg-white/20 hover:bg-white/30 text-white font-semibold rounded-lg border-2 border-white shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-105 backdrop-blur-sm">
+                    <a href="{% url 'about' %}" style="display: inline-flex; align-items: center; justify-content: center; font-weight: 500; border-radius: 0.375rem; transition: all 0.3s ease; outline: none; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); padding: 0.75rem 1.5rem; font-size: 1.125rem; background: white; color: #047857; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);" onmouseover="this.style.backgroundColor='#f9fafb'; this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)';" onmouseout="this.style.backgroundColor='white'; this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)';" onfocus="this.style.boxShadow='0 0 0 2px #10b981';">
                         {% trans 'Learn More' %}
                     </a>
                     <a href="{% url 'contact' %}" class="inline-flex items-center justify-center px-6 py-3 bg-white/20 hover:bg-white/30 text-white font-semibold rounded-lg border-2 border-white shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-105 backdrop-blur-sm">
@@ -146,10 +146,10 @@
 
 {% block content %}
     <!-- Services Section with Static 3-Card Layout -->
-    <section class="py-16 bg-gradient-subtle rounded-xl shadow-sm mb-12 border border-emerald-100">
+    <section class="pt-4 pb-8 bg-gradient-subtle rounded-xl shadow-sm mb-8 border border-emerald-100">
         <div class="container mx-auto px-4 max-w-7xl">
             <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold text-slate-800 mb-2">Our Services</h2>
+                <h2 class="text-3xl font-bold text-slate-800 mb-2">How can we serve you?</h2>
                 <p class="text-gray-600 max-w-2xl mx-auto">Access government services, request assistance, and participate in community programs through our digital platform.</p>
             </div>
 
@@ -163,15 +163,10 @@
                      role="region"
                      aria-label="TDIF Projects service card">
                     <div class="p-6 flex flex-col flex-grow">
-                        <div class="flex items-center justify-between mb-4">
-                            <div style="width: 56px; height: 56px; min-width: 56px; min-height: 56px; border-radius: 9999px; background: linear-gradient(135deg, rgb(30, 64, 175) 0%, rgb(5, 150, 105) 100%); display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); overflow: hidden; flex-shrink: 0; transition: transform 0.3s ease, box-shadow 0.3s ease;">
-                                <i style="color: white; font-size: 1.25rem;" class="fas fa-hammer"></i>
-                            </div>
-                        </div>
                         <h3 class="text-xl font-semibold text-slate-800 mb-2">TDIF Projects</h3>
                         <p class="text-gray-600 mb-4 flex-grow">Access Transitional Development Impact Fund projects focused on infrastructure and community development.</p>
-                        <div class="mt-auto">
-                            <a href="{% url 'tdif_projects' %}" class="inline-flex items-center justify-center px-4 py-2 text-xs font-medium text-white rounded-lg shadow-md transition-all duration-200 min-h-[44px]" style="background: linear-gradient(135deg, #1e40af 0%, #059669 100%); display: inline-flex; align-items: center; justify-content: center;" onmouseover="this.style.background='linear-gradient(135deg, #1e3a8a 0%, #047857 100%)'; this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 15px -3px rgba(0, 0, 0, 0.1)';" onmouseout="this.style.background='linear-gradient(135deg, #1e40af 0%, #059669 100%)'; this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                        <div class="mt-auto flex justify-center">
+                            <a href="{% url 'tdif_projects' %}" class="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white rounded-lg shadow-md transition-all duration-200 min-h-[44px]" style="background: linear-gradient(135deg, #1e40af 0%, #059669 100%); display: inline-flex; align-items: center; justify-content: center;" onmouseover="this.style.background='linear-gradient(135deg, #1e3a8a 0%, #047857 100%)'; this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 15px -3px rgba(0, 0, 0, 0.1)';" onmouseout="this.style.background='linear-gradient(135deg, #1e40af 0%, #059669 100%)'; this.style.transform='translateY(0)'; this.style.boxShadow='none';">
                                 Explore Projects
                             </a>
                         </div>
@@ -186,15 +181,10 @@
                      role="region"
                      aria-label="Explore Our Programs service card (featured)">
                     <div class="p-6 flex flex-col flex-grow">
-                        <div class="flex items-center justify-between mb-4">
-                            <div style="width: 56px; height: 56px; min-width: 56px; min-height: 56px; border-radius: 9999px; background: linear-gradient(135deg, rgb(30, 64, 175) 0%, rgb(5, 150, 105) 100%); display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); overflow: hidden; flex-shrink: 0; transition: transform 0.3s ease, box-shadow 0.3s ease;">
-                                <i style="color: white; font-size: 1.25rem;" class="fas fa-clipboard-list"></i>
-                            </div>
-                        </div>
                         <h3 class="text-xl font-semibold text-slate-800 mb-2">Explore Our Programs</h3>
                         <p class="text-gray-600 mb-4 flex-grow">Discover and access programs and services directly provided by our office to address community needs.</p>
-                        <div class="mt-auto">
-                            <a href="{% url 'programs' %}" class="inline-flex items-center justify-center px-4 py-2 text-xs font-medium text-white rounded-lg shadow-md transition-all duration-200 min-h-[44px]" style="background: linear-gradient(135deg, #1e40af 0%, #059669 100%); display: inline-flex; align-items: center; justify-content: center;" onmouseover="this.style.background='linear-gradient(135deg, #1e3a8a 0%, #047857 100%)'; this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 15px -3px rgba(0, 0, 0, 0.1)';" onmouseout="this.style.background='linear-gradient(135deg, #1e40af 0%, #059669 100%)'; this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                        <div class="mt-auto flex justify-center">
+                            <a href="{% url 'programs' %}" class="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white rounded-lg shadow-md transition-all duration-200 min-h-[44px]" style="background: linear-gradient(135deg, #1e40af 0%, #059669 100%); display: inline-flex; align-items: center; justify-content: center;" onmouseover="this.style.background='linear-gradient(135deg, #1e3a8a 0%, #047857 100%)'; this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 15px -3px rgba(0, 0, 0, 0.1)';" onmouseout="this.style.background='linear-gradient(135deg, #1e40af 0%, #059669 100%)'; this.style.transform='translateY(0)'; this.style.boxShadow='none';">
                                 Explore Programs
                             </a>
                         </div>
@@ -209,15 +199,10 @@
                      role="region"
                      aria-label="Ministry Programs service card">
                     <div class="p-6 flex flex-col flex-grow">
-                        <div class="flex items-center justify-between mb-4">
-                            <div style="width: 56px; height: 56px; min-width: 56px; min-height: 56px; border-radius: 9999px; background: linear-gradient(135deg, rgb(30, 64, 175) 0%, rgb(5, 150, 105) 100%); display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); overflow: hidden; flex-shrink: 0; transition: transform 0.3s ease, box-shadow 0.3s ease;">
-                                <i style="color: white; font-size: 1.25rem;" class="fas fa-building"></i>
-                            </div>
-                        </div>
                         <h3 class="text-xl font-semibold text-slate-800 mb-2">Ministry Programs</h3>
                         <p class="text-gray-600 mb-4 flex-grow">Discover curated ministry programs designed for efficient access and streamlined service delivery.</p>
-                        <div class="mt-auto">
-                            <a href="{% url 'accessible_ministry_programs' %}" class="inline-flex items-center justify-center px-4 py-2 text-xs font-medium text-white rounded-lg shadow-md transition-all duration-200 min-h-[44px]" style="background: linear-gradient(135deg, #1e40af 0%, #059669 100%); display: inline-flex; align-items: center; justify-content: center;" onmouseover="this.style.background='linear-gradient(135deg, #1e3a8a 0%, #047857 100%)'; this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 15px -3px rgba(0, 0, 0, 0.1)';" onmouseout="this.style.background='linear-gradient(135deg, #1e40af 0%, #059669 100%)'; this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                        <div class="mt-auto flex justify-center">
+                            <a href="{% url 'accessible_ministry_programs' %}" class="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white rounded-lg shadow-md transition-all duration-200 min-h-[44px]" style="background: linear-gradient(135deg, #1e40af 0%, #059669 100%); display: inline-flex; align-items: center; justify-content: center;" onmouseover="this.style.background='linear-gradient(135deg, #1e3a8a 0%, #047857 100%)'; this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 15px -3px rgba(0, 0, 0, 0.1)';" onmouseout="this.style.background='linear-gradient(135deg, #1e40af 0%, #059669 100%)'; this.style.transform='translateY(0)'; this.style.boxShadow='none';">
                                 Discover Programs
                             </a>
                         </div>
