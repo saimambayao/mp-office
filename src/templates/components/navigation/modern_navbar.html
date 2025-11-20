@@ -5,14 +5,17 @@
     mobileMenuOpen: false,
     servicesDropdownOpen: false,
     userDropdownOpen: false,
+    databaseDropdownOpen: false,
     languageDropdownOpen: false,
     currentLanguage: '{{ request.LANGUAGE_CODE }}', // Initialize with Django's current language
     servicesHovered: false,
     userHovered: false,
+    databaseHovered: false,
     servicesTimer: null,
     userTimer: null,
+    databaseTimer: null,
     csrfToken: '{{ csrf_token }}', // Pass CSRF token directly
-    
+
     _toggleInProgress: false,
 
     init() {
@@ -94,66 +97,106 @@
     toggleServicesDropdown() {
         this.servicesDropdownOpen = !this.servicesDropdownOpen;
         this.userDropdownOpen = false;
+        this.databaseDropdownOpen = false;
         this.userHovered = false;
+        this.databaseHovered = false;
         this.clearAllTimers();
     },
-    
+
     toggleUserDropdown() {
         this.userDropdownOpen = !this.userDropdownOpen;
         this.servicesDropdownOpen = false;
+        this.databaseDropdownOpen = false;
         this.servicesHovered = false;
+        this.databaseHovered = false;
         this.clearAllTimers();
     },
-    
-    closeAllDropdowns() {
+
+    toggleDatabaseDropdown() {
+        this.databaseDropdownOpen = !this.databaseDropdownOpen;
         this.servicesDropdownOpen = false;
         this.userDropdownOpen = false;
         this.servicesHovered = false;
         this.userHovered = false;
         this.clearAllTimers();
     },
-    
+
+    closeAllDropdowns() {
+        this.servicesDropdownOpen = false;
+        this.userDropdownOpen = false;
+        this.databaseDropdownOpen = false;
+        this.servicesHovered = false;
+        this.userHovered = false;
+        this.databaseHovered = false;
+        this.clearAllTimers();
+    },
+
     clearAllTimers() {
         if (this.servicesTimer) clearTimeout(this.servicesTimer);
         if (this.userTimer) clearTimeout(this.userTimer);
+        if (this.databaseTimer) clearTimeout(this.databaseTimer);
         this.servicesTimer = null;
         this.userTimer = null;
+        this.databaseTimer = null;
     },
     
     onServicesMouseEnter() {
         this.clearAllTimers();
         this.servicesHovered = true;
         this.userHovered = false;
+        this.databaseHovered = false;
         this.userDropdownOpen = false;
+        this.databaseDropdownOpen = false;
     },
-    
+
     onServicesMouseLeave() {
         this.servicesTimer = setTimeout(() => {
             this.servicesHovered = false;
         }, 150);
     },
-    
+
     onUserMouseEnter() {
         this.clearAllTimers();
         this.userHovered = true;
         this.servicesHovered = false;
+        this.databaseHovered = false;
         this.servicesDropdownOpen = false;
+        this.databaseDropdownOpen = false;
     },
-    
+
     onUserMouseLeave() {
         this.userTimer = setTimeout(() => {
             this.userHovered = false;
+        }, 150);
+    },
+
+    onDatabaseMouseEnter() {
+        this.clearAllTimers();
+        this.databaseHovered = true;
+        this.servicesHovered = false;
+        this.userHovered = false;
+        this.servicesDropdownOpen = false;
+        this.userDropdownOpen = false;
+    },
+
+    onDatabaseMouseLeave() {
+        this.databaseTimer = setTimeout(() => {
+            this.databaseHovered = false;
         }, 150);
     },
     
     get servicesVisible() {
         return this.servicesDropdownOpen || this.servicesHovered;
     },
-    
+
     get userVisible() {
         return this.userDropdownOpen || this.userHovered;
+    },
+
+    get databaseVisible() {
+        return this.databaseDropdownOpen || this.databaseHovered;
     }
-}" 
+}"
 @keydown.escape="closeMobileMenu(); closeAllDropdowns()"
 class="fixed top-0 left-0 w-full z-50 bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-md"
 x-init="window.addEventListener('resize', () => { if (window.innerWidth >= 768) closeMobileMenu() })">
@@ -166,24 +209,24 @@ x-init="window.addEventListener('resize', () => { if (window.innerWidth >= 768) 
                     <div style="width: 40px; height: 40px; border-radius: 12px; background: linear-gradient(135deg, #1e40af 0%, #059669 100%); display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); transition: all 0.2s ease; color: white; font-weight: bold; font-size: 14px;" onmouseover='this.style.boxShadow="0 8px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)"; this.style.transform="scale(1.05)";' onmouseout='this.style.boxShadow="0 4px 6px -1px rgba(0, 0, 0, 0.1)"; this.style.transform="scale(1)";'><i class="fas fa-gavel"></i></div>
                     <div class="hidden sm:block">
                         <div style="display: flex; flex-direction: column; line-height: 1.2;">
-                            <span style="font-size: 1.125rem; font-weight: 700; background: linear-gradient(135deg, #059669 0%, #047857 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: #059669;">Bangsamoro</span>
-                            <span style="font-size: 1.125rem; font-weight: 700; background: linear-gradient(135deg, #059669 0%, #047857 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: #059669;">Parliament</span>
+                            <span style="font-size: 1.125rem; font-weight: 700; background: linear-gradient(135deg, #059669 0%, #047857 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: #059669;">MP Gayak</span>
                         </div>
                     </div>
                 </a>
             </div>
 
             <!-- Desktop Navigation -->
-            <div class="hidden md:flex items-center gap-4">
+            <div class="hidden md:flex items-center gap-4 ml-auto">
                 <!-- About Link -->
                 <a href="{% url 'about' %}"
                    {% if request.resolver_match.url_name == 'about' %}
-                   style="position: relative; padding: 0.75rem 0.75rem; font-size: 0.875rem; font-weight: 500; transition: color 0.2s ease; color: #047857;"
+                   style="position: relative; padding: 0.75rem 0.75rem; font-size: 0.875rem; font-weight: 500; transition: color 0.2s ease; color: #047857; display: flex; align-items: center; gap: 0.5rem;"
                    {% else %}
-                   style="position: relative; padding: 0.75rem 0.75rem; font-size: 0.875rem; font-weight: 500; transition: color 0.2s ease; color: #374151;"
+                   style="position: relative; padding: 0.75rem 0.75rem; font-size: 0.875rem; font-weight: 500; transition: color 0.2s ease; color: #374151; display: flex; align-items: center; gap: 0.5rem;"
                    onmouseover="this.style.color='#059669';"
                    onmouseout="this.style.color='#374151';"
                    {% endif %}>
+                    <i class="fas fa-info-circle" style="font-size: 0.875rem; background: linear-gradient(135deg, #1e40af 0%, #059669 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;"></i>
                     {% trans "About" %}
                     <span {% if request.resolver_match.url_name == 'about' %}
                           style="position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: #059669; transform: scaleX(1); transition: transform 0.2s ease;"
@@ -195,8 +238,8 @@ x-init="window.addEventListener('resize', () => { if (window.innerWidth >= 768) 
                 </a>
 
                 <!-- Services Dropdown -->
-                <div class="relative" 
-                     @click.outside="servicesDropdownOpen = false"
+                <div class="relative"
+                     @click.outside="closeAllDropdowns()"
                      @mouseenter="onServicesMouseEnter()"
                      @mouseleave="onServicesMouseLeave()">
                     <button @click="toggleServicesDropdown()"
@@ -207,6 +250,7 @@ x-init="window.addEventListener('resize', () => { if (window.innerWidth >= 768) 
                             onmouseover="this.style.color='#059669';"
                             onmouseout="this.style.color='#374151';"
                             {% endif %}>
+                        <i class="fas fa-hand-holding-heart" style="font-size: 0.875rem; background: linear-gradient(135deg, #1e40af 0%, #059669 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;"></i>
                         {% trans "Services" %}
                         <svg class="h-4 w-4 transition-transform duration-200" 
                              :class="servicesVisible ? 'rotate-180' : ''"
@@ -308,12 +352,13 @@ x-init="window.addEventListener('resize', () => { if (window.innerWidth >= 768) 
                 <!-- Get Involved Link -->
                 <a href="{% url 'get_involved' %}"
                    {% if request.resolver_match.url_name == 'get_involved' %}
-                   style="position: relative; padding: 0.75rem 0.75rem; font-size: 0.875rem; font-weight: 500; transition: color 0.2s ease; color: #047857;"
+                   style="position: relative; padding: 0.75rem 0.75rem; font-size: 0.875rem; font-weight: 500; transition: color 0.2s ease; color: #047857; display: flex; align-items: center; gap: 0.5rem;"
                    {% else %}
-                   style="position: relative; padding: 0.75rem 0.75rem; font-size: 0.875rem; font-weight: 500; transition: color 0.2s ease; color: #374151;"
+                   style="position: relative; padding: 0.75rem 0.75rem; font-size: 0.875rem; font-weight: 500; transition: color 0.2s ease; color: #374151; display: flex; align-items: center; gap: 0.5rem;"
                    onmouseover="this.style.color='#059669';"
                    onmouseout="this.style.color='#374151';"
                    {% endif %}>
+                   <i class="fas fa-handshake" style="font-size: 0.875rem; background: linear-gradient(135deg, #1e40af 0%, #059669 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;"></i>
                    {% trans "Get Involved" %}
                    <span {% if request.resolver_match.url_name == 'get_involved' %}
                          style="position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: #059669; transform: scaleX(1); transition: transform 0.2s ease;"
@@ -327,12 +372,13 @@ x-init="window.addEventListener('resize', () => { if (window.innerWidth >= 768) 
                 <!-- News Link -->
                 <a href="{% url 'announcements' %}"
                    {% if request.resolver_match.url_name == 'announcements' or request.resolver_match.url_name == 'announcement_detail' %}
-                   style="position: relative; padding: 0.75rem 0.75rem; font-size: 0.875rem; font-weight: 500; transition: color 0.2s ease; color: #047857;"
+                   style="position: relative; padding: 0.75rem 0.75rem; font-size: 0.875rem; font-weight: 500; transition: color 0.2s ease; color: #047857; margin-right: 1.5rem; display: flex; align-items: center; gap: 0.5rem;"
                    {% else %}
-                   style="position: relative; padding: 0.75rem 0.75rem; font-size: 0.875rem; font-weight: 500; transition: color 0.2s ease; color: #374151;"
+                   style="position: relative; padding: 0.75rem 0.75rem; font-size: 0.875rem; font-weight: 500; transition: color 0.2s ease; color: #374151; margin-right: 1.5rem; display: flex; align-items: center; gap: 0.5rem;"
                    onmouseover="this.style.color='#059669';"
                    onmouseout="this.style.color='#374151';"
                    {% endif %}>
+                   <i class="fas fa-newspaper" style="font-size: 0.875rem; background: linear-gradient(135deg, #1e40af 0%, #059669 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;"></i>
                    {% trans "News" %}
                    <span {% if request.resolver_match.url_name == 'announcements' or request.resolver_match.url_name == 'announcement_detail' %}
                          style="position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: #059669; transform: scaleX(1); transition: transform 0.2s ease;"
@@ -367,24 +413,24 @@ x-init="window.addEventListener('resize', () => { if (window.innerWidth >= 768) 
                 <!-- Database Dropdown (Staff Only) -->
                 {% if user.is_authenticated and user.user_type in 'superuser,mp,chief_of_staff,admin,coordinator' or user.is_superuser %}
                 <div class="relative"
-                     @click.outside="userDropdownOpen = false; servicesDropdownOpen = false;"
-                     x-data="{ databaseDropdownOpen: false, databaseHovered: false, databaseTimer: null }"
-                     @mouseenter="databaseHovered = true; clearTimeout(databaseTimer);"
-                     @mouseleave="databaseTimer = setTimeout(() => { databaseHovered = false; }, 150);">
-                    <button @click="databaseDropdownOpen = !databaseDropdownOpen; servicesDropdownOpen = false; userDropdownOpen = false;"
+                     @click.outside="closeAllDropdowns()"
+                     @mouseenter="onDatabaseMouseEnter()"
+                     @mouseleave="onDatabaseMouseLeave()">
+                    <button @click="toggleDatabaseDropdown()"
                             style="display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0.75rem; font-size: 0.875rem; font-weight: 500; transition: color 0.2s ease; color: #374151;"
                             onmouseover="this.style.color='#059669';"
                             onmouseout="this.style.color='#374151';">
+                        <i class="fas fa-database" style="font-size: 0.875rem; background: linear-gradient(135deg, #1e40af 0%, #059669 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;"></i>
                         {% trans "Database" %}
                         <svg class="h-4 w-4 transition-transform duration-200"
-                             :class="databaseDropdownOpen || databaseHovered ? 'rotate-180' : ''"
+                             :class="databaseVisible ? 'rotate-180' : ''"
                              fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                         </svg>
                     </button>
 
                     <!-- Database Dropdown Menu -->
-                    <div x-show="databaseDropdownOpen || databaseHovered"
+                    <div x-show="databaseVisible"
                          x-transition:enter="transition ease-out duration-200"
                          x-transition:enter-start="opacity-0 scale-95 translate-y-1"
                          x-transition:enter-end="opacity-100 scale-100 translate-y-0"
@@ -517,8 +563,8 @@ x-init="window.addEventListener('resize', () => { if (window.innerWidth >= 768) 
             <div class="hidden md:flex items-center gap-4">
                 {% if user.is_authenticated %}
                     <!-- User Dropdown -->
-                    <div class="relative" 
-                         @click.outside="userDropdownOpen = false"
+                    <div class="relative"
+                         @click.outside="closeAllDropdowns()"
                          @mouseenter="onUserMouseEnter()"
                          @mouseleave="onUserMouseLeave()">
                         <button @click="toggleUserDropdown()"
@@ -695,7 +741,7 @@ x-init="window.addEventListener('resize', () => { if (window.innerWidth >= 768) 
             <a href="{% url 'home' %}" class="mobile-menu-link" style="display: flex; align-items: center; gap: 0.75rem; text-decoration: none;">
                 <div style="width: 44px; height: 44px; border-radius: 12px; background: linear-gradient(135deg, rgb(30, 64, 175) 0%, rgb(5, 150, 105) 100%); display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); color: white; font-weight: bold; font-size: 16px;"><i class="fas fa-building"></i></div>
                 <div style="display: flex; flex-direction: column;">
-                    <span style="font-size: 1.25rem; font-weight: 700; background: linear-gradient(135deg, #059669 0%, #047857 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: #059669; line-height: 1.2;">Bangsamoro Parliament</span>
+                    <span style="font-size: 1.25rem; font-weight: 700; background: linear-gradient(135deg, #059669 0%, #047857 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: #059669; line-height: 1.2;">MP Gayak</span>
                 </div>
             </a>
         </div>
@@ -1110,7 +1156,7 @@ x-init="window.addEventListener('resize', () => { if (window.innerWidth >= 768) 
             top: 0 !important;
             right: 0 !important;
             bottom: 0 !important;
-            width: 90% !important;
+            width: 80% !important;
             max-width: 384px !important;
             background: white !important;
             overflow-y: auto !important;
