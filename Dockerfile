@@ -82,6 +82,7 @@ RUN apt-get update && apt-get install -y \
     curl \
     wget \
     netcat-openbsd \
+    su-exec \
     && rm -rf /var/lib/apt/lists/* \
     && apt-get clean
 
@@ -178,17 +179,25 @@ reset_stats() {
 # Function to fix media permissions
 fix_media_permissions() {
     echo "⏳ Setting up media directories and permissions..."
-    # Ensure media directories exist
+    # Ensure media directories exist (use || true to not fail on permission errors)
     mkdir -p /app/media/voter_id_photos /app/media/constituents/voter_id_photos /app/media/temp /app/media/announcements /app/media/documents 2>/dev/null || true
 
-    # Explicitly set ownership and permissions for appuser on media and staticfiles
-    chown -R appuser:appuser /app/media 2>/dev/null || true
-    chmod -R 775 /app/media 2>/dev/null || true
+    # Try to set ownership (will fail if not root, but won't stop deployment)
+    chown -R appuser:appuser /app/media 2>/dev/null || echo "⚠️  Could not change media ownership (volume may need manual permissions)"
+    chmod -R 775 /app/media 2>/dev/null || echo "⚠️  Could not change media permissions (volume may need manual permissions)"
 
     chown -R appuser:appuser /app/staticfiles 2>/dev/null || true
-    chmod -R 775 /app/staticfiles 2>/dev/null || true
+    chmod -R 755 /app/staticfiles 2>/dev/null || true
 
-    echo "✅ Media and staticfiles permissions configured"
+    # Check if we can actually write to media directory
+    if [ ! -w /app/media ]; then
+        echo "❌ WARNING: /app/media is not writable by appuser!"
+        echo "   Please configure Railway volume with: uid=1000, gid=1000, or run as root to fix permissions"
+    else
+        echo "✅ Media directory is writable"
+    fi
+
+    echo "✅ Media and staticfiles permissions check completed"
 }
 
 # Run deployment steps
@@ -206,16 +215,22 @@ echo "================================================"
 echo "🎉 BM Parliament on Railway Ready!"
 echo "================================================"
 
-# Start gunicorn with Railway-optimized settings
+# Fix media permissions as root (Railway volume issue)
+echo "⏳ Fixing media volume permissions..."
+chown -R appuser:appuser /app/media 2>/dev/null || echo "⚠️  Warning: Could not change some media permissions"
+chmod -R 775 /app/media 2>/dev/null || echo "⚠️  Warning: Could not change some media permissions"
+echo "✅ Media permissions fixed"
+
+# Start gunicorn as appuser with Railway-optimized settings
 # Use PORT env var provided by Railway (defaults to 8000)
-exec gunicorn --bind 0.0.0.0:${PORT:-8000} --workers 4 --worker-class sync --max-requests 1000 --max-requests-jitter 50 --timeout 30 --keep-alive 5 config.wsgi:application
+exec su-exec appuser gunicorn --bind 0.0.0.0:${PORT:-8000} --workers 4 --worker-class sync --max-requests 1000 --max-requests-jitter 50 --timeout 30 --keep-alive 5 config.wsgi:application
 EOF
 
 # Make entrypoint executable
 RUN chmod +x /app/entrypoint.sh
 
-# Switch to non-root user
-USER appuser
+# NOTE: We stay as root to fix Railway volume permissions in entrypoint
+# The entrypoint will drop to appuser before starting gunicorn using su-exec
 
 # Expose port (Railway will override this)
 EXPOSE 8000
