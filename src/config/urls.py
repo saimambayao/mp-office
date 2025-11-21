@@ -38,8 +38,15 @@ urlpatterns += i18n_patterns(
     # Add other app URLs as they're created
 )
 
-# Serve media files (always, using Railway volume in production)
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# Serve media files explicitly (works in production)
+from django.views.static import serve
+from django.urls import re_path
+
+urlpatterns += [
+    re_path(r'^media/(?P<path>.*)$', serve, {
+        'document_root': settings.MEDIA_ROOT,
+    }),
+]
 
 # Serve static files in development only
 if settings.DEBUG:
