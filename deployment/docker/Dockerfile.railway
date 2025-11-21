@@ -62,6 +62,10 @@ RUN pip install --no-cache-dir -r requirements.txt
 # =============================================================================
 FROM python:3.12-slim-bookworm AS production
 
+# Cache busting argument - change value to force rebuild
+ARG CACHE_BUST=2025-11-21-01
+RUN echo "Cache bust: ${CACHE_BUST}"
+
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
