@@ -515,16 +515,17 @@ LOGGING = {
             'class': 'logging.StreamHandler',
             'formatter': 'verbose',
         },
-        'file': {
-            'level': 'ERROR',
-            'class': 'logging.FileHandler',
-            'filename': os.path.join(BASE_DIR, 'logs/error.log'),
-            'formatter': 'verbose',
-        },
+        # File logging disabled in production - Railway captures console logs
+        # 'file': {
+        #     'level': 'ERROR',
+        #     'class': 'logging.FileHandler',
+        #     'filename': os.path.join(BASE_DIR, 'logs/error.log'),
+        #     'formatter': 'verbose',
+        # },
     },
     'loggers': {
         'django': {
-            'handlers': ['console', 'file'],
+            'handlers': ['console'],  # Only console logging
             'level': 'ERROR',
             'propagate': True,
         },
