@@ -140,7 +140,7 @@ if not DATABASE_URL:
 DATABASES = {
     'default': dj_database_url.parse(
         DATABASE_URL,
-        conn_max_age=600,  # Keep connections alive for 10 minutes
+        conn_max_age=0,  # Disable connection pooling (creates new connection each request)
         conn_health_checks=True,  # Enable health checks
     )
 }
@@ -171,7 +171,7 @@ database_config['OPTIONS'] = {
 database_config.update({
     # Enable connection pooling with health checks
     'CONN_HEALTH_CHECKS': True,
-    'CONN_MAX_AGE': 600,  # 10 minutes
+    'CONN_MAX_AGE': 0,  # Disabled - create new connection each request
     'ATOMIC_REQUESTS': True,  # Wrap requests in transactions
 
     # Database engine specific settings

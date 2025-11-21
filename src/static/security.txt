@@ -19,4 +19,4 @@ Policy: https://bmparliament.gov.ph/security-policy
 # We currently do not offer a bug bounty program, but we acknowledge
 # security researchers who responsibly disclose vulnerabilities.
 
-# BM Parliament - Bringing Public Service Closer to You
+# BM Parliament - Public Service Portal
