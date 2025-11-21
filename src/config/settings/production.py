@@ -298,6 +298,14 @@ else:
     # Ensure the directory exists, though Docker volumes usually handle this.
     os.makedirs(MEDIA_ROOT, exist_ok=True)
 
+# File Upload Permissions (Security Best Practice)
+# Django defaults create inconsistent permissions (0600 for large files)
+# Explicitly set permissions to ensure consistent, secure file creation
+FILE_UPLOAD_PERMISSIONS = 0o664  # rw-rw-r-- (owner:rw, group:rw, others:r)
+FILE_UPLOAD_DIRECTORY_PERMISSIONS = 0o775  # rwxrwxr-x (owner:rwx, group:rwx, others:rx)
+FILE_UPLOAD_TEMP_DIR = os.path.join(BASE_DIR, 'media', 'temp')  # Temporary upload directory
+os.makedirs(FILE_UPLOAD_TEMP_DIR, mode=0o770, exist_ok=True)  # More restrictive for temp files
+
 # Cache Configuration - Redis
 REDIS_URL = os.getenv('REDIS_URL', os.getenv('REDIS_TLS_URL'))
 

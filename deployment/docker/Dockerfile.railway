@@ -113,6 +113,7 @@ COPY --from=frontend-builder --chown=appuser:appuser /app/static /app/static
 RUN cat > /app/entrypoint.sh << 'EOF'
 #!/bin/bash
 set -e
+umask 0002  # Default permissions: 664 for files, 775 for directories
 
 echo "🚀 Starting BM Parliament on Railway"
 echo "================================================"
@@ -178,18 +179,28 @@ reset_stats() {
 
 # Function to fix media permissions
 fix_media_permissions() {
-    echo "⏳ Setting up media directories and permissions..."
-    # Ensure media directories exist
-    mkdir -p /app/media/voter_id_photos /app/media/constituents/voter_id_photos /app/media/temp /app/media/announcements /app/media/documents 2>/dev/null || true
+    echo "⏳ Setting up directories and permissions..."
 
-    # Explicitly set ownership and permissions for appuser on media and staticfiles
-    chown -R appuser:appuser /app/media 2>/dev/null || true
-    chmod -R 775 /app/media 2>/dev/null || true
+    # Create ALL media subdirectories
+    mkdir -p /app/media/{voter_id_photos,constituents/voter_id_photos,temp,announcements,documents,chapter_activities,chapter_materials,campaign_attachments,cooperatives/documents,agency_logos,referral_documents,task_attachments,staff_profiles,constituent_profiles,ministry_programs/documents,ministry_programs/guidelines,ministry_programs/monitoring,program_guidelines,program_forms,application_attachments,application_documents,disbursement_receipts,disbursement_docs,impact_photos,impact_reports} 2>/dev/null || true
 
-    chown -R appuser:appuser /app/staticfiles 2>/dev/null || true
-    chmod -R 775 /app/staticfiles 2>/dev/null || true
+    # Create logs directory
+    mkdir -p /app/logs 2>/dev/null || true
 
-    echo "✅ Media and staticfiles permissions configured"
+    # Set ownership for all writable directories
+    chown -R appuser:appuser /app/media /app/logs /app/staticfiles 2>/dev/null || true
+
+    # Set permissions: 775 for writable dirs, 770 for temp (more restrictive)
+    chmod -R 775 /app/media /app/logs 2>/dev/null || true
+    chmod 770 /app/media/temp 2>/dev/null || true
+    chmod -R 755 /app/staticfiles 2>/dev/null || true
+
+    # Verify write permissions
+    if [ -w /app/media ] && [ -w /app/logs ]; then
+        echo "✅ All directories writable by appuser"
+    else
+        echo "⚠️  WARNING: Some directories may not be writable!"
+    fi
 }
 
 # Run deployment steps
@@ -206,12 +217,6 @@ reset_stats
 echo "================================================"
 echo "🎉 BM Parliament on Railway Ready!"
 echo "================================================"
-
-# Fix media permissions as root (Railway volume issue)
-echo "⏳ Fixing media volume permissions..."
-chown -R appuser:appuser /app/media 2>/dev/null || echo "⚠️  Warning: Could not change some media permissions"
-chmod -R 775 /app/media 2>/dev/null || echo "⚠️  Warning: Could not change some media permissions"
-echo "✅ Media permissions fixed"
 
 # Start gunicorn as appuser with Railway-optimized settings
 # Use PORT env var provided by Railway (defaults to 8000)
