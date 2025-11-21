@@ -38,7 +38,9 @@ urlpatterns += i18n_patterns(
     # Add other app URLs as they're created
 )
 
-# Serve media and static files in development
+# Serve media files (always, using Railway volume in production)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+# Serve static files in development only
 if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     urlpatterns += static(settings.STATIC_URL, document_root=os.path.join(settings.BASE_DIR, 'static'))
